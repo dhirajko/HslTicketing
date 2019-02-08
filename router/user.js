@@ -8,7 +8,7 @@ const {token}=require('../middleware/tokenCreator')
 
 
 
-router.post('/', async (req, res) => {                                   // create User
+router.post('/', async (req, res) => {                                      // create User
 
     const { error } = validateUser(req.body)
     if (error) return res.status(400).send(error.details[0].message);
@@ -36,6 +36,10 @@ router.post('/', async (req, res) => {                                   // crea
     res.send(dataForPayload);
 
 })
+
+
+
+
 
 
 module.exports = router;

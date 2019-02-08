@@ -18,7 +18,7 @@ const User = sequelize.define('user', {
     required: true
   }
 })
-User.token=process.env.JWT_PRIVATE_KEY;
+
 
 
 function validateUser(user) {
