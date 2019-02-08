@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken')
 
 function auth(req, res, next) {
-    const token = req.header('x-auth-token');
+    const token = req.header('X-API-Key');
     if (!token) return res.status(401).send('Assess denied. No token provied')
 
     try {
