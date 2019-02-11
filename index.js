@@ -5,6 +5,7 @@ const auth= require('./router/auth')
 const authCheck = require('./middleware/authChecker')
 const jwt =  require('jsonwebtoken');
 const dotenv=require('dotenv').config();
+const validate= require('./router/purchse')
 
 
 
@@ -21,9 +22,13 @@ app.use('/api/login', auth)
 
 
 app.get('/',authCheck,async (req, res) => {                                     //Smmple route for auth check
-    const a='Hello'
-    res.send(a)
+ 
     })
+
+app.post('/', (req,res)=>{
+
+ 
+})
    
 
 app.listen(3000, console.log('connected to port 3000'))
