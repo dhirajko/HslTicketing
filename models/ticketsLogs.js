@@ -10,7 +10,6 @@ const TicketDetail = sequelize.define('ticketLogs', {
     userId: {
         type: Sequelize.STRING
     },
-   
     ticketTypeId: {
         type: Sequelize.STRING,
         required: true
@@ -19,25 +18,27 @@ const TicketDetail = sequelize.define('ticketLogs', {
         type: Sequelize.STRING,
         required: true
     },
+
     regionId: {
         type: Sequelize.STRING,
         required: true
-    },
-    ticketId: {
+    },    ticketId: {
         type: Sequelize.STRING(1024),
         required: true
     },
     validFrom: {
         type: Sequelize.STRING,
     },
+    
     validityPeriod : {
-        type : Sequelize.NUMBER
+        type : Sequelize.STRING
     }
 
 
-})
+  })
 
-TicketDetail.sync();
+//TicketDetail.sync();                      // for creating table initally
+
 
 function validateTicketLogs(details) {
 
@@ -55,5 +56,5 @@ function validateTicketLogs(details) {
     return Joi.validate(details, schema);
   
   }
-exports.TicketDetail=TicketDetail;
+ exports.TicketDetail=TicketDetail;
 exports.ValidateTicketLogs=validateTicketLogs;

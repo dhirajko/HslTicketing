@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const { token } = require('../middleware/tokenCreator')
 const { TicketDetail } = require('../models/ticketsLogs')
 const fetch = require("node-fetch");
+const authCheck = require('../middleware/authChecker')
 
 
-router.post('/', async (req, res) => {
+router.post('/',authCheck, async (req, res) => {                                                  // for purchasing tickets
     const { error } = validateTicketParam(req.body)
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -23,10 +22,9 @@ router.post('/', async (req, res) => {
                 'X-API-Key': process.env.APIKey
             }
         })
-
         const json = await result.json();
 
-       const ticket = await TicketDetail.create(json);
+        const ticket = await TicketDetail.create(json);      
 
         res.send(ticket);
 
@@ -35,13 +33,9 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
-    const a = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    const b = await a.json();
-    console.log(b);
-
-
-    res.send('ok')
+router.get('/', authCheck,async (req, res) => {                                         // find all the tickets that you have purchased
+    const ticket = await TicketDetail.findAll();
+    res.send(ticket);
 })
 
 
