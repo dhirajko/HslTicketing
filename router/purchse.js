@@ -34,7 +34,10 @@ router.post('/',authCheck, async (req, res) => {                                
 })
 
 router.get('/', authCheck,async (req, res) => {                                         // find all the tickets that you have purchased
-    const ticket = await TicketDetail.findAll();
+   
+    const ticket = await TicketDetail.findAll({where : {
+            userId : req.user.id
+    }});
     res.send(ticket);
 })
 
