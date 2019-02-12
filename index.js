@@ -5,7 +5,8 @@ const auth= require('./router/auth')
 const authCheck = require('./middleware/authChecker')
 const jwt =  require('jsonwebtoken');
 const dotenv=require('dotenv').config();
-const validate= require('./router/purchse')
+const purchase= require('./router/purchse')
+
 
 
 
@@ -16,18 +17,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+app.use('/api/purchase',purchase)
 app.use('/api/user',user)
 app.use('/api/login', auth)
 
 
 app.get('/',authCheck,async (req, res) => {                                     //Smmple route for auth check
- 
+   
     })
 
 app.post('/', (req,res)=>{
 
- 
+
 })
    
 
