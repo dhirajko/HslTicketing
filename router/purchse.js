@@ -5,6 +5,8 @@ const Joi = require('joi');
 const { TicketDetail } = require('../models/ticketsLogs')
 const fetch = require("node-fetch");
 const authCheck = require('../middleware/authChecker')
+require('dotenv').config();
+
 
 
 router.post('/',authCheck, async (req, res) => {                                                  // for purchasing tickets
@@ -14,15 +16,27 @@ router.post('/',authCheck, async (req, res) => {                                
     var url = 'https://sales-api.hsl.fi/api/ticket/v3/order';
 
     try {
-        const result = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(req.body),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-Key': process.env.APIKey
-            }
-        })
-        const json = await result.json();
+        // const result = await fetch(url, {                                // uncomment the given code for hsl api
+        //     method: 'POST',
+        //     body: JSON.stringify(req.body),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-API-Key': process.env.APIKey
+        //     }
+        // })
+        // const json = await result.json();
+
+        const json= {
+                "phoneNumber": "+358501231234",
+                "userId": "1",
+                "ticketTypeId": "season",
+                "customerTypeId": "adult",
+                "regionId": "helsinki",
+                "ticketId": "w9dQURvLfOXMvIAXSeJCLPROuy4T5J0hOQBdFJEPYPF004",
+                "validFrom": "2018-06-26T13:09:40.797Z"
+                }
+
+        
 
         const ticket = await TicketDetail.create(json);      
 
@@ -35,8 +49,9 @@ router.post('/',authCheck, async (req, res) => {                                
 
 router.get('/', authCheck,async (req, res) => {                                         // find all the tickets that you have purchased
    
+
     const ticket = await TicketDetail.findAll({where : {
-            userId : req.user.id
+            userId :  "1"                                                              // replace "1" with req.user.id for getind gata
     }});
     res.send(ticket);
 })

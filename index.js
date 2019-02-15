@@ -4,15 +4,15 @@ const user =require('./router/user')
 const auth= require('./router/auth')
 const authCheck = require('./middleware/authChecker')
 const jwt =  require('jsonwebtoken');
-const dotenv=require('dotenv').config();
 const purchase= require('./router/purchse')
+require('dotenv').config();
 
 
 
 
 
 
-
+require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

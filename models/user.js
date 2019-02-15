@@ -19,7 +19,7 @@ const User = sequelize.define('user', {
   }
 })
 
-
+//User.sync()
 
 function validateUser(user) {
 
