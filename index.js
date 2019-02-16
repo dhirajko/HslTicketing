@@ -3,7 +3,6 @@ const app = express();
 const user =require('./router/user')
 const auth= require('./router/auth')
 const authCheck = require('./middleware/authChecker')
-const jwt =  require('jsonwebtoken');
 const purchase= require('./router/purchse')
 require('dotenv').config();
 
