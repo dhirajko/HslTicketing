@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const user =require('./router/user')
+const user =require('./router/users')
 const auth= require('./router/auth')
 const authCheck = require('./middleware/authChecker')
 const purchase= require('./router/purchse')
@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 
-require('dotenv').config();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,13 +21,10 @@ app.use('/api/user',user)
 app.use('/api/login', auth)
 
 
-app.get('/',authCheck,async (req, res) => {                                     //Smmple route for auth check
-   
-    })
-
-app.post('/', (req,res)=>{
 
 
+app.post('/', authCheck, (req,res)=>{                                               //auth check route
+    res.send("check")
 })
    
 

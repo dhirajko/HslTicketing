@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {                                      // c
         const authToken= token(dataForPayload);
         console.log(authToken);
         
-        res.header(('X-API-Key',authToken))    
+        res.header(('X-user',authToken))    
         
          res.send(dataForPayload);
 

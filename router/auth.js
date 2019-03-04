@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {                                      //  
 
      const authToken= token(dataForPayload);
     
-    res.header(('X-API-Key',authToken))    
+    res.header(('X-user',authToken))    
     console.log(authToken);
     
     

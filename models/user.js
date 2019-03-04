@@ -1,10 +1,18 @@
 const Sequelize = require('sequelize');
 const Joi = require('joi');
 const sequelize = require('../db/db')
+const Tickets=require('./Tickets')
 
 
 
 const User = sequelize.define('user', {
+  id: {
+    type: Sequelize.UUID,
+    primaryKey: true,    
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
+    autoIncrement: false,
+  },
   name: {
     type: Sequelize.STRING,
     required: true
@@ -19,7 +27,6 @@ const User = sequelize.define('user', {
   }
 })
 
-//User.sync()
 
 function validateUser(user) {
 
