@@ -1,53 +1,59 @@
 const Sequelize = require('sequelize');
 const Joi = require('joi');
 const sequelize = require('../db/db')
-const User = require('./user')
 
-const Tickets = sequelize.define('Tickets', {
-    id: {
-        type: Sequelize.UUID,
-        primaryKey: true,    
-        defaultValue: Sequelize.UUIDV4,
+const TicketsSchema=function(sequelize,DataTypes ) {
+    return sequelize.define('tickets', {
+      id: {
+        type: DataTypes.UUID,
         allowNull: false,
-        autoIncrement: false,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
       },
-    phoneNumber: {
-        type: Sequelize.STRING,
-        required: true
-    },
-    userId: {
-        type: Sequelize.INTEGER       
-    },
-    ticketTypeId: {
-        type: Sequelize.STRING,
-        required: true
-    },
-    customerTypeId: {
-        type: Sequelize.STRING,
-        required: true
-    },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      ticketTypeId: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      customerTypeId: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      regionId: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      ticketId: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      validFrom: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        defaultValue: sequelize.fn('now')
+      },
+      validityPeriod: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
+    }, {
+      tableName: 'tickets'
+    });
+  };
 
-    regionId: {
-        type: Sequelize.STRING,
-        required: true
-    },
 
-    ticketId: {
-        type: Sequelize.STRING(1024),
-        required: true
-    },
-    validFrom: {
-        type: Sequelize.STRING,
-    },
-
-    validityPeriod: {
-        type: Sequelize.STRING
-    }
-})
-
-Tickets.associate=(models)=>{
-    Tickets.hasOne(models.User, {foreignKey: 'id', as: 'userId'})
-}
+Tickets=TicketsSchema(sequelize,Sequelize);
 //Tickets.sync()
 
 function validateTicketParam(body) {
@@ -56,6 +62,8 @@ function validateTicketParam(body) {
             is: "season",
             then: Joi.string().required()
         }),
+       
+        
 
         phoneNumber: Joi.string().required(),
 
@@ -63,8 +71,6 @@ function validateTicketParam(body) {
             is: "day",
             then: Joi.number().min(1).max(7).required()
         }),
-
-        validFrom: Joi.date(),
         ticketTypeId: Joi.string().required().valid(["single", "day", "season"]).when('customerTypeId', {
             is: "child",
             then: Joi.string().invalid('season')

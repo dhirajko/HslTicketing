@@ -29,21 +29,22 @@ router.post('/', authCheck, async (req, res) => {
             .then(body => body.json())
             .then(json => console.log(json))
 
+
+    
+    
     // I have supposed the the ticket has response as per hsl api 
-   const sampleTickets= {
+    const sample= {
         "phoneNumber": "+358501231234",
-        "userId":parseInt(req.user.id),                          //change uuid as per your user UUID
+        "userId": req.user.id,
         "ticketTypeId": "season",
         "customerTypeId": "adult",
         "regionId": "helsinki",
         "ticketId": "w9dQURvLfOXMvIAXSeJCLPROuy4T5J0hOQBdFJEPYPF004",
         "validFrom": "2018-06-26T13:09:40.797Z"
       }
-                               
-      const ticket= await Tickets.create(sampleTickets)
-      .then(result=> res.send(result))
-      .catch(reason=>{res.send("You have error ")})
-
+        
+     const ticket = await Tickets.create(sample)
+     res.send(ticket)  
      
     } catch (error) {
         res.send(error)
@@ -52,12 +53,12 @@ router.post('/', authCheck, async (req, res) => {
 
 
 router.get('/', authCheck, async (req, res) => {                                      // Load all the tickets that you have purchased
-    const tickets = await Tickets.findAll({
+    const ticket = await Tickets.findAll({
         where: {
-            userId:parseInt(req.user.id)                                                            
+            userId: req.user.id                                                         
         }
     });
-    res.send(Tickets);
+  res.send(ticket)
 })
 
 module.exports = router;

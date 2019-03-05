@@ -6,7 +6,7 @@ require('dotenv').config();
 //  });
 
 
-const sequelize= new Sequelize('hsl','admin','admin',{
+const sequelize= new Sequelize(process.env.database,process.env.username,process.env.password,{
     dialect : 'postgres'
 })
 
