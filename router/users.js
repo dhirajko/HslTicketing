@@ -9,7 +9,7 @@ const authCheck = require('../middleware/authChecker')
 
 
 
-router.post('/', async (req, res) => {                                      // create User
+router.post('/', async (req, res) => {                                      // create User 
 
         const { error } = validateUser(req.body)
         if (error) return res.status(400).send(error.details[0].message);
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {                                      // c
 
 })
 
-router.get('/', authCheck, async (req, res) => {                                      // Load all the tickets that you have purchased
+router.get('/', authCheck, async (req, res) => {                                      // All Get all the details of logged in user
         const users = await User.findAll({
                 where: {
                         id: req.user.id

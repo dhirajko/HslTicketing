@@ -9,7 +9,7 @@ require('dotenv').config();
 
 
 
-router.post('/', authCheck, async (req, res) => {
+router.post('/', authCheck, async (req, res) => {                                   //to purchase ticket
     req.body.userId = String(req.user.id)   
 
     const { error } = validateTicketParam(req.body)
@@ -27,7 +27,7 @@ router.post('/', authCheck, async (req, res) => {
             }
         })
             .then(body => body.json())
-            .then(json => console.log(json))
+            .then(json => console.log(json))                                           //display the response in console
 
 
     
@@ -43,7 +43,7 @@ router.post('/', authCheck, async (req, res) => {
         "validFrom": "2018-06-26T13:09:40.797Z"
       }
         
-     const ticket = await Tickets.create(sample)
+     const ticket = await Tickets.create(sample)                                    //save ticket in the ticket log along with user id
      res.send(ticket)  
      
     } catch (error) {
